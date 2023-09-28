@@ -13,17 +13,35 @@
     <button id="rock" class="options">Rock</button>
     <button id="paper" class="options">Paper</button>
     <button id="scissors" class="options">Scissors</button>
+    <br>
+    <button id="next">Next Round</button>
 
      <script>
+
+        let pointsYou = 0;
+        let  pointsComp = 0;
+        const score = document.createElement("h1");
+        score.innerText = "Man " + pointsYou +" VS Machine " + pointsComp;
+        document.body.appendChild(score);
+
+
         let moves = [
             "rock",
             "paper",
             "scissors"
         ];
 
+        let comp = "";
+
         function getComputerChoice() {
             let choice = moves[Math.floor(Math.random()*moves.length)];
-            return choice;
+            comp = choice;
+            if (pointsYou > 4 || pointsComp > 4){
+                alert("END of game")
+                pointsYou=0;
+                pointsComp=0;
+            }
+            return comp;
         };
 
         function playRound(computerSelection, playerSelection){
@@ -37,40 +55,50 @@
                 let lost_rock = document.createElement("h2");
                 lost_rock.innerText="You lost to rock";
                 document.body.appendChild(lost_rock);
-                return (-1)
+                pointsComp += 1;
+                score.innerText = "Man " + pointsYou +" VS Machine " + pointsComp;
+
             } else if (computerSelection === "scissors" && player === "rock") {
                 let win_scissors = document.createElement("h2");
                 win_scissors.innerText="You won to scissors";
                 document.body.appendChild(win_scissors);
-                return(1)
+                pointsYou+= 1;
+                score.innerText = "Man " + pointsYou +" VS Machine " + pointsComp;
             } else if (computerSelection === "rock" && player === "paper") {
                 let won_rock = document.createElement("h2");
                 won_rock.innerText="You won to rock";
                 document.body.appendChild(won_rock);
-                return(1)
+                pointsYou +=1;
+                score.innerText = "Man " + pointsYou +" VS Machine " + pointsComp;
             } else if(computerSelection === "scissors" && player === "paper") {
                 let lost_scissors = document.createElement("h2");
                 lost_scissors.innerText="You lost to scissors";
                 document.body.appendChild(lost_scissors);
-                return(-1)
+                pointsComp += 1;
+                score.innerText = "Man " + pointsYou +" VS Machine " + pointsComp;
             } else if (computerSelection === "paper" && player === "scissors") {
                 let won_paper = document.createElement("h2");
                 won_paper.innerText="You won to paper";
                 document.body.appendChild(won_paper);
-                return(1)
+                pointsYou +=1;
+                score.innerText = "Man " + pointsYou +" VS Machine " + pointsComp;
             } else if (computerSelection === "paper" && player === "rock") {
                 let lost_paper = document.createElement("h2");
                 lost_paper.innerText="You lost to paper";
                 document.body.appendChild(lost_paper);
-                return(-1)
+                pointsComp+=1;
+                score.innerText = "Man " + pointsYou +" VS Machine " + pointsComp;
             } else {
                 return("Please type in one of the values of rps")
             }
         }
 
+
+        
+
         const rock = document.querySelector("#rock");
         rock.addEventListener("click", () => {playRound(comp, "rock")});
-        const comp = getComputerChoice();
+
 
         const paper = document.querySelector('#paper');
         paper.addEventListener("click", () => {playRound(comp, "paper")});
@@ -78,19 +106,24 @@
         const scissors = document.querySelector("#scissors");
         scissors.addEventListener("click", () => {playRound(comp, "scissors")});
 
+        const next = document.querySelector("#next");
+        next.addEventListener("click", getComputerChoice);
+
+
+
+
+
+
 
         function game(){
-            let score = 0
+            alert("Get ready to play the basillisk, choose your move. Afer choosing click next to play the next round");
             
-            if (score > 0) {
-                console.log(`Congrats you won ${score} out of 5`)
-            } else if (score < 0) {
-                console.log(`Oh no, you lost ${score} out of 5`)
-            } else {
-                console.log("yOU TIED")
-            }
 
         }
+
+        game()
+
+
 
         
 
